@@ -1,38 +1,25 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"os"
 
-	"src/models"
+	"models"
+	"services"
 
 	_ "github.com/lib/pq"
 )
 
-/*Address is a derived datatype that gets address data of a user and constructs a JSON object */
-type Address struct {
-	ID       int    `json:"id"`
-	Location string `json:"location"`
-}
-
-/*User is a derived datatype that gets user data and constructs a JSON object */
-type User struct {
-	ID           int       `json:"id"`
-	Name         string    `json:"name"`
-	MobileNumber string    `json:"mobile_number"`
-	Email        string    `json:"email"`
-	Addresses    []Address `json:"addresses"`
-}
-
 func main() {
-	connectionString := "user=postgres dbname=learnGO  password=ubuntu"
+	// connectionString := "postgres://postgres:ubuntu@192.168.2.45:5432/learnGO"
+	connectionString := "host=192.168.2.45 port=5432 user=postgres password=ubuntu dbname=learnGO sslmode=disable"
 	driverName := "postgres"
 	models.InitDB(driverName, connectionString)
+
 	fmt.Println("Happy Learning.....!!!!!!")
 
-	jsonFile, err := os.Open("data.json")
+	jsonFile, err := os.Open("src/data.json")
 	if err != nil {
 		fmt.Println("Error reading JSON file", err)
 		return
@@ -46,7 +33,5 @@ func main() {
 	}
 	fmt.Println(string(jsonData))
 
-	var user User
-	json.Unmarshal(jsonData, &user)
-	fmt.Println(user)
+	services.AddUser(jsonData)
 }
