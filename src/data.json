@@ -1,16 +1,13 @@
 {
-   "id" : 1,
    "name" : "Kosalram",
    "mobile_number": "8903827395",
    "email": "kosalram@ideas2it.com",
    "addresses" : [
     {
-      "id" : 2,
       "location" : "Kentucky"
     },
     {
-        "id" : 3,
         "location" : "Massachusets"
-        }
+    }
     ]
 }
