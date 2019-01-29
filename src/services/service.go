@@ -4,22 +4,17 @@ import (
 	"encoding/json"
 	"fmt"
 	"models"
-	"reflect"
 )
 
 /*AddUser function gets the JSON Object and adds in the database. */
 func AddUser(jsonData []uint8) {
-	var user models.Users
+	user := new(models.Users)
 
-	json.Unmarshal(jsonData, &user)
-	fmt.Println("Added User ::::::::::::::::::::::::::::", reflect.TypeOf(models.Engine))
-	fmt.Println(user)
-	affected, err := models.Engine.Insert(user)
+	json.Unmarshal(jsonData, user)
+	fmt.Println("User================================>>>>>>>>>>>>>>>>", string(jsonData))
 
-	if err != nil {
-		fmt.Println("Error Adding User", err)
-		return
-	}
-	fmt.Println("::::::::::::::::Affecteddddddd::::::::::::::::::::", affected)
+	models.Db.NewRecord(user)
+	affected := models.Db.Create(&user)
 
+	fmt.Println("User Created :::::::::::::::::::::::", models.Db.NewRecord(user), affected)
 }

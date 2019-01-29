@@ -2,9 +2,8 @@ package models
 
 /*Users is a derived datatype that gets user data and constructs a JSON object */
 type Users struct {
-	ID           int64       `json:"id"`
-	Name         string      `json:"name"`
-	MobileNumber string      `json:"mobile_number"`
-	Email        string      `json:"email"`
-	Addresses    []Addresses `json:"addresses"`
+	Id            string `json:"id" gorm:"type:uuid;primary_key;default:uuid_generate_v4()"`
+	Name          string `json:"name" gorm:"type:string"`
+	Mobile_Number string `json:"mobile_number" gorm:"type:string"`
+	Email         string `json:"email" gorm:"type:string"`
 }

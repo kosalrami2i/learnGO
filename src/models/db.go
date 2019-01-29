@@ -1,20 +1,24 @@
 package models
 
 import (
+	"fmt"
 	"log"
+	"reflect"
 
-	"github.com/go-xorm/xorm"
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
-/*Engine : This is the connection variable. */
-var Engine *xorm.Engine
+var Db *gorm.DB
 
 /*InitDB method establishes Database connection
  * and returns the same.
  */
 func InitDB(driverName, connectionString string) {
 	var err error
-	Engine, err = xorm.NewEngine(driverName, connectionString)
+
+	Db, err = gorm.Open(driverName, connectionString)
+	fmt.Println(reflect.TypeOf(Db))
 
 	if err != nil {
 		log.Fatal("Could not connect with database!!!!!!!!!!!!!!!!", err)

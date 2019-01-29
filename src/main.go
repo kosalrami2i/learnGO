@@ -31,7 +31,6 @@ func main() {
 		fmt.Println("Error reading JSON data", err)
 		return
 	}
-	fmt.Println(string(jsonData))
 
 	services.AddUser(jsonData)
 }
